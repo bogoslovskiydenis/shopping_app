@@ -116,7 +116,7 @@ class MyHomePage extends ConsumerWidget {
                                     bannerImages[index].bannerImgUrl),
                                 fit: BoxFit.cover),
                             Container(
-                              color: Color(0XFFFFFF),
+                              color: Color(0xFFFFFF),
                               child: Padding(
                                 padding: const EdgeInsets.all(12),
                                 child: Text(
