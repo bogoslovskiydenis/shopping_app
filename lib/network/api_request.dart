@@ -52,14 +52,14 @@ List <MyCategory> parseCategory(String responseBody){
   return categories;
 }
 //check code status Categories
-Future<List<FeatureImg>> fetchCategories ()async
+Future<List<MyCategory>> fetchCategories ()async
 {
   final response = await http.get('$mainUrl$categoriesUrl');
   if(response.statusCode==200)
-    return compute (parseFeatureImage,response.body);
+    return compute (parseCategory,response.body);
   else if (response.statusCode == 404)
     throw Exception('Not found');
   else
     throw Exception ('Cannot get Categories');
 }
-//endregion: req re
+//endregion:
