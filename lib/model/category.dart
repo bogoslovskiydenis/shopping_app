@@ -1,16 +1,16 @@
-class Category {
+class MyCategory {
   int categoryId;
   String categoryName;
   String categoryImg;
   List<SubCategories> subCategories;
 
-  Category(
+  MyCategory(
       {this.categoryId,
         this.categoryName,
         this.categoryImg,
         this.subCategories});
 
-  Category.fromJson(Map<String, dynamic> json) {
+  MyCategory.fromJson(Map<String, dynamic> json) {
     categoryId = json['categoryId'];
     categoryName = json['categoryName'];
     categoryImg = json['categoryImg'];
