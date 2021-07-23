@@ -32,6 +32,7 @@ dependencies:
   http: any
   carousel_slider: any
   page_transition : any
+  auto_size_text : any
 
 dev_dependencies:
   flutter_test:

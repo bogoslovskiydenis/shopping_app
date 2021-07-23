@@ -82,4 +82,14 @@ Future<List<Product>> fetchProducts (id)async
   else
     throw Exception ('Cannot get Product');
 }
+Future<List<Product>> fetchProductsBySubCategory (id)async
+{
+  final response = await http.get('$mainUrl$productUrl/$id');
+  if(response.statusCode==200)
+    return compute (parseProduct,response.body);
+  else if (response.statusCode == 404)
+    throw Exception('Not found');
+  else
+    throw Exception ('Cannot get Product');
+}
 //endregion:
