@@ -31,6 +31,7 @@ dependencies:
   flutter_riverpod: any
   http: any
   carousel_slider: any
+  page_transition : any
 
 dev_dependencies:
   flutter_test:

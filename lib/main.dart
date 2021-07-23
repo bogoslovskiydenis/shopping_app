@@ -3,15 +3,17 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:page_transition/page_transition.dart';
 import 'package:shopping_app/model/category.dart';
+import 'package:shopping_app/model/product.dart';
+import 'package:shopping_app/screens/products_list_screens.dart';
+import 'package:shopping_app/state/state_management.dart';
 
 import 'network/api_request.dart';
 
 void main() {
-  SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
-    statusBarColor: Colors.transparent,
-  ));
-  runApp(ProviderScope(child: MyApp()));
+  SystemChrome.setEnabledSystemUIOverlays(SystemUiOverlay.values);
+    runApp(ProviderScope(child: MyApp()));
 }
 
 class MyApp extends StatelessWidget {
@@ -20,6 +22,16 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
+      onGenerateRoute: (settings){
+        switch(settings.name)
+        {
+          case '/productList':
+            return PageTransition(type: PageTransitionType.fade, child: ProductListPage(), settings: settings );
+        break;
+          default: return null;
+        }
+
+      },
       title: 'Flutter Demo',
       theme: ThemeData(
         primarySwatch: Colors.blue,
@@ -86,7 +98,7 @@ class MyHomePage extends ConsumerWidget {
                               )
                       ],
                     ),
-                    children: _buildList(categories[index]),
+                    children: _buildList(context ,categories[index]),
                   ),
                 ),
               );
@@ -100,7 +112,7 @@ class MyHomePage extends ConsumerWidget {
           ),
         ),
       ),
-      body: Column(
+      body: SafeArea(child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           //Feature
@@ -110,13 +122,13 @@ class MyHomePage extends ConsumerWidget {
                 CarouselSlider(
                   items: featureImages
                       .map((e) => Builder(
-                            builder: (context) => Container(
-                              child: Image(
-                                image: NetworkImage(e.featureImgUrl),
-                                fit: BoxFit.cover,
-                              ),
-                            ),
-                          ))
+                    builder: (context) => Container(
+                      child: Image(
+                        image: NetworkImage(e.featureImgUrl),
+                        fit: BoxFit.cover,
+                      ),
+                    ),
+                  ))
                       .toList(),
                   options: CarouselOptions(
                       autoPlay: true,
@@ -168,11 +180,11 @@ class MyHomePage extends ConsumerWidget {
           Expanded(
             child: bannerApiResult.when(
                 loading: () => const Center(
-                      child: CircularProgressIndicator(),
-                    ),
+                  child: CircularProgressIndicator(),
+                ),
                 error: (error, stack) => Center(
-                      child: Text('$error'),
-                    ),
+                  child: Text('$error'),
+                ),
                 data: (bannerImages) => ListView.builder(
                     itemCount: bannerImages.length,
                     itemBuilder: (context, index) {
@@ -200,21 +212,26 @@ class MyHomePage extends ConsumerWidget {
                     })),
           )
         ],
-      ),
+      ),)
     );
   }
 
 
   //in categoriest add sub categories
-  _buildList(MyCategory category) {
+  _buildList(BuildContext context , MyCategory category) {
     var list = new List<Widget>();
     category.subCategories.forEach((element) {
-      list.add(Padding(
+      list.add(GestureDetector(child: Padding(
         padding: const EdgeInsets.all(8),
         child: Text(
           element.subCategoryName,
           style: TextStyle(fontSize: 12),
         ),
+      ),
+      onTap: (){
+        context.read(subCategorySelected).state = element;
+        Navigator.of(context).pushNamed('/productList');
+      },
       ));
     });
     return list;
