@@ -43,13 +43,13 @@ class MyHomePage extends ConsumerWidget {
     return result;
   });
 
-  GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
-
   //ignore: top_level_function_literal_block
   final _fetchCategories = FutureProvider((ref) async {
     var result = await fetchCategories();
     return result;
   });
+
+  GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
   Widget build(BuildContext context,
@@ -60,84 +60,111 @@ class MyHomePage extends ConsumerWidget {
 
     return Scaffold(
       key: _scaffoldKey,
-      drawer: Drawer(child: categoriesApiResult.when(data: (categories)=> ListView.builder(itemCount: categories.length,
-          itemBuilder: (context,index){
-        return Card(child: Padding(padding: const EdgeInsets.all(8),
-          child: ExpansionTile(
-            title: Row(children: [
-              CircleAvatar(backgroundImage: NetworkImage(categories[index].categoryImg),),
-              SizedBox(width: 30,),
-              categories[index].categoryName.length <=10 ?
-                  Text(categories[index].categoryName):
-                  Text(categories[index].categoryName, style: TextStyle(fontSize: 12),)
-            ],),
-            children: _buildList(categories[index]),
+      drawer: Drawer(
+        child: categoriesApiResult.when(
+          data: (categories) => ListView.builder(
+            itemCount: categories.length,
+            itemBuilder: (context, index) {
+              return Card(
+                child: Padding(
+                  padding: const EdgeInsets.all(8),
+                  child: ExpansionTile(
+                    title: Row(
+                      children: [
+                        CircleAvatar(
+                          backgroundImage:
+                              NetworkImage(categories[index].categoryImg),
+                        ),
+                        SizedBox(
+                          width: 30,
+                        ),
+                        categories[index].categoryName.length <= 10
+                            ? Text(categories[index].categoryName)
+                            : Text(
+                                categories[index].categoryName,
+                                style: TextStyle(fontSize: 12),
+                              )
+                      ],
+                    ),
+                    children: _buildList(categories[index]),
+                  ),
+                ),
+              );
+            },
+          ),
+          loading: () => const Center(
+            child: CircularProgressIndicator(),
+          ),
+          error: (error, stack) => Center(
+            child: Text('$error'),
           ),
         ),
-        );
-          },
       ),
-        loading: () => const Center(child: CircularProgressIndicator(),),
-        error: (error, stack) => Center(
-          child: Text('$error'),
-    ),),),
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          //Drawer button
-
-            //Feature
-            featureImgApiResult.when(
-                data: (featureImages) => Stack(
+          //Feature
+          featureImgApiResult.when(
+            data: (featureImages) => Stack(
+              children: [
+                CarouselSlider(
+                  items: featureImages
+                      .map((e) => Builder(
+                            builder: (context) => Container(
+                              child: Image(
+                                image: NetworkImage(e.featureImgUrl),
+                                fit: BoxFit.cover,
+                              ),
+                            ),
+                          ))
+                      .toList(),
+                  options: CarouselOptions(
+                      autoPlay: true,
+                      enlargeCenterPage: true,
+                      initialPage: 0,
+                      viewportFraction: 1),
+                ),
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    CarouselSlider(
-                      items: featureImages
-                          .map((e) => Builder(
-                        builder: (context) => Container(
-                          child: Image(
-                            image: NetworkImage(e.featureImgUrl),
-                            fit: BoxFit.cover,
-                          ),
+                    IconButton(
+                        icon: Icon(
+                          Icons.menu,
+                          color: Colors.black,
                         ),
-                      ))
-                          .toList(),
-                      options: CarouselOptions(
-                          autoPlay: true,
-                          enlargeCenterPage: true,
-                          initialPage: 0,
-                          viewportFraction: 1),
+                        onPressed: () =>
+                            _scaffoldKey.currentState.openDrawer()),
+                    SizedBox(
+                      height: 50,
                     ),
-                   Column(
-                     crossAxisAlignment: CrossAxisAlignment.start,
-                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                     children: [ IconButton(icon: Icon(Icons.menu,color: Colors.black,), onPressed: ()=> _scaffoldKey.currentState.openDrawer()
-                     ),
-                     SizedBox(height: 50,),
-                     Row(
-                       crossAxisAlignment: CrossAxisAlignment.center,
-                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                       children: [
-                         Icon(
-                           Icons.navigate_before,
-                           size: 45,
-                           color: Colors.white,
-                         ),
-                         Icon(
-                           Icons.navigate_next,
-                           size: 45,
-                           color: Colors.white,
-                         ),
-                       ],
-                     )],)
+                    Row(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Icon(
+                          Icons.navigate_before,
+                          size: 45,
+                          color: Colors.white,
+                        ),
+                        Icon(
+                          Icons.navigate_next,
+                          size: 45,
+                          color: Colors.white,
+                        ),
+                      ],
+                    )
                   ],
-                ),
-                loading: () => const Center(
-                  child: CircularProgressIndicator(),
-                ),
-                error: (error, stack) => Center(
-                  child: Text('$error'),
                 )
-        ,),
+              ],
+            ),
+            loading: () => const Center(
+              child: CircularProgressIndicator(),
+            ),
+            error: (error, stack) => Center(
+              child: Text('$error'),
+            ),
+          ),
           Expanded(
             child: bannerApiResult.when(
                 loading: () => const Center(
@@ -177,15 +204,19 @@ class MyHomePage extends ConsumerWidget {
     );
   }
 
+
+  //in categoriest add sub categories
   _buildList(MyCategory category) {
     var list = new List<Widget>();
     category.subCategories.forEach((element) {
-      list.add(Padding(padding: const EdgeInsets.all(8),
-      child: Text(element.subCategoryName,
-      style: TextStyle(fontSize: 12),),));
+      list.add(Padding(
+        padding: const EdgeInsets.all(8),
+        child: Text(
+          element.subCategoryName,
+          style: TextStyle(fontSize: 12),
+        ),
+      ));
     });
     return list;
   }
 }
-
-
