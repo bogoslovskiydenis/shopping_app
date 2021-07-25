@@ -1,3 +1,5 @@
+import 'package:shopping_app/model/product_size.dart';
+
 class Product {
   int productId;
   String productName;
@@ -14,6 +16,7 @@ class Product {
   int subCategoryId;
 
   List<ProductImages> productImages;
+  List<ProductSizes> productSizes;
 
   Product(
       {this.productId,
@@ -47,13 +50,20 @@ class Product {
     productCode = json['productCode'];
     subCategoryId = json['subCategoryId'] as int;
 
+
+    if (json['productSizes'] != null) {
+      productSizes = new List<ProductSizes>();
+      json['productSizes'].forEach((v) {
+        productSizes.add(new ProductSizes.fromJson(v));
+      });
+    }
+
     if (json['productImages'] != null) {
       productImages = new List<ProductImages>();
       json['productImages'].forEach((v) {
         productImages.add(new ProductImages.fromJson(v));
       });
     }
-
   }
 
   Map<String, dynamic> toJson() {
@@ -75,6 +85,9 @@ class Product {
     if (this.productImages != null) {
       data['productImages'] =
           this.productImages.map((v) => v.toJson()).toList();
+    }
+    if (this.productSizes != null) {
+      data['productSizes'] = this.productSizes.map((v) => v.toJson()).toList();
     }
 
     return data;
