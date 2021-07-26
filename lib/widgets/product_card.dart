@@ -63,6 +63,7 @@ class ProductCard extends StatelessWidget {
                 SizedBox(
                   height: 4.0,
                 ),
+                /*Price Product*/
                 Row(
                   crossAxisAlignment: CrossAxisAlignment.center,
                   mainAxisAlignment: MainAxisAlignment.center,
