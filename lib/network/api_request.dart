@@ -93,3 +93,23 @@ Future<List<Product>> fetchProductsBySubCategory (id)async
     throw Exception ('Cannot get Product');
 }
 //endregion:
+
+//region : ProductsDetail Api request
+Product parseProductDetail(String responseBody){
+  var l = json.decode(responseBody) as dynamic;
+  var products =  Product.fromJson(l);
+  return products;
+}
+//check code status Categories
+Future<Product> fetchProductsDetail (id)async
+{
+  final response = await http.get('$mainUrl$productDetail/$id');
+  if(response.statusCode==200)
+    return compute (parseProductDetail,response.body);
+  else if (response.statusCode == 404)
+    throw Exception('Not found');
+  else
+    throw Exception ('Cannot get Product Detail');
+}
+
+//endregion:
