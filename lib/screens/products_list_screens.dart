@@ -20,7 +20,7 @@ class ProductListPage extends ConsumerWidget {
     return result;
   });
 
-  GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
+ final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
   Widget build(BuildContext context,

@@ -6,6 +6,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:shopping_app/model/category.dart';
 import 'package:shopping_app/model/product.dart';
+import 'package:shopping_app/screens/product_detail_page.dart';
 import 'package:shopping_app/screens/products_list_screens.dart';
 import 'package:shopping_app/state/state_management.dart';
 
@@ -28,6 +29,9 @@ class MyApp extends StatelessWidget {
           case '/productList':
             return PageTransition(type: PageTransitionType.fade, child: ProductListPage(), settings: settings );
         break;
+          case '/productDetail':
+            return PageTransition(type: PageTransitionType.fade, child: ProductDetailPage(), settings: settings );
+            break;
           default: return null;
         }
 

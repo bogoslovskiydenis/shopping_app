@@ -1,7 +1,10 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:shopping_app/const/api_cons.dart';
 import 'package:shopping_app/model/product.dart';
+import 'package:shopping_app/state/state_management.dart';
+import 'package:flutter_riverpod/all.dart';
 
 class ProductCard extends StatelessWidget {
   final Product product;
@@ -10,7 +13,7 @@ class ProductCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Card(
+    return GestureDetector(child: Card(
       elevation: 12,
       child: Column(
         children: [
@@ -23,18 +26,18 @@ class ProductCard extends StatelessWidget {
               ),
               product.productIsSale == true
                   ? Column(
-                      children: [
-                        Container(
-                          color: Color(0xFFFFFF),
-                          child: Padding(
-                            padding: const EdgeInsets.all(12),
-                            child: Text(
-                              product.productSaleText,
-                              style: TextStyle(color: Colors.white),),
-                          ),
-                        )
-                      ],
-                    )
+                children: [
+                  Container(
+                    color: Color(0xFFFFFF),
+                    child: Padding(
+                      padding: const EdgeInsets.all(12),
+                      child: Text(
+                        product.productSaleText,
+                        style: TextStyle(color: Colors.white),),
+                    ),
+                  )
+                ],
+              )
                   : Container()
             ],
           ),
@@ -84,6 +87,9 @@ class ProductCard extends StatelessWidget {
           )
         ],
       ),
-    );
+    ),onTap: (){
+      context.read(productSelected).state= product;
+      Navigator.of(context).pushNamed('/productDetail');
+    },);
   }
 }
