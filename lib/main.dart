@@ -13,7 +13,7 @@ import 'package:shopping_app/state/state_management.dart';
 import 'network/api_request.dart';
 
 void main() {
-  SystemChrome.setEnabledSystemUIOverlays(SystemUiOverlay.values);
+
     runApp(ProviderScope(child: MyApp()));
 }
 

@@ -22,6 +22,8 @@ class ProductDetailPage extends ConsumerWidget {
     var productsApiResult =
         watch(_fetchProductById(context.read(productSelected).state.productId));
 
+    var _productSizeSelected = watch(productSizeSelected).state;
+
     return Scaffold(
       body: SafeArea(
         child: Column(
@@ -104,18 +106,43 @@ class ProductDetailPage extends ConsumerWidget {
                       child: Text(
                         'Size',
                         style: TextStyle(
-                            fontSize: 17, decoration: TextDecoration.underline),
+                            fontSize: 14, decoration: TextDecoration.underline),
                         textAlign: TextAlign.justify,
                       ),
                     ),
                     products.productSizes != null
                         ? Wrap(
                             children: products.productSizes
-                                .map((size) => SizeWidget(
-                                    SizeModel(false, size.size.sizeName), size))
+                                .map((size) => GestureDetector(
+                                      onTap: size.number > 0
+                                          ? () {
+                                              context
+                                                  .read(productSizeSelected)
+                                                  .state = size;
+                                            }
+                                          : null,
+                                      child: SizeWidget(
+                                          SizeModel(
+                                              _productSizeSelected.size ==
+                                                  size.size,
+                                              size),
+                                          size),
+                                    ))
                                 .toList(),
                           )
                         : Container(),
+                    /*warning*/
+                    _productSizeSelected.number != null &&
+                            _productSizeSelected.number <= 5
+                        ? Center(
+                            child: Text(
+                              'Only ${_productSizeSelected.number} left',
+                              style: TextStyle(
+                                  fontSize: 14, color: Colors.redAccent),
+                            ),
+                          )
+                        : Container(),
+
                     /*button*/
                     Column(
                       children: [
@@ -173,7 +200,7 @@ class ProductDetailPage extends ConsumerWidget {
                       child: Text(
                         'Finner Details',
                         style: TextStyle(
-                            fontSize: 17, decoration: TextDecoration.underline),
+                            fontSize: 14, decoration: TextDecoration.underline),
                         textAlign: TextAlign.justify,
                       ),
                     ),
@@ -184,7 +211,7 @@ class ProductDetailPage extends ConsumerWidget {
                       child: Text(
                         '${products.productDescription}',
                         style: TextStyle(
-                            fontSize: 17, decoration: TextDecoration.underline),
+                            fontSize: 14, decoration: TextDecoration.underline),
                         textAlign: TextAlign.justify,
                       ),
                     ),

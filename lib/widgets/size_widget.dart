@@ -16,15 +16,14 @@ class SizeWidget extends StatelessWidget {
         width: 50.0,
         height: 50.0,
         child: Center(
-          child: Text(
-            sizeModel.text,
+          child: Text(sizeModel.productSizes.size.sizeName,
             style: TextStyle(
-                color: sizeModel.isSelected ? Colors.white : Colors.black,
+                color:sizeModel.productSizes.number == 0 ? Colors.white: sizeModel.isSelected ? Colors.white : Colors.black,
                 fontSize: 14),
           ),
         ),
         decoration: BoxDecoration(
-            color: sizeModel.isSelected ? Colors.black : Colors.transparent,
+            color:sizeModel.productSizes.number == 0 ? Colors.grey: sizeModel.isSelected ? Colors.black : Colors.transparent,
             border: Border.all(
                 width: 1.0,
                 color: sizeModel.isSelected ? Colors.black : Colors.grey),
@@ -37,7 +36,7 @@ class SizeWidget extends StatelessWidget {
 
 class SizeModel {
   bool isSelected;
-  final String text;
+  final ProductSizes productSizes;
 
-  SizeModel(this.isSelected, this.text);
+  SizeModel(this.isSelected, this.productSizes);
 }
