@@ -16,7 +16,7 @@ List <MyBanner> parseBanner(String responseBody){
 //check code status Banner
 Future<List<MyBanner>> fetchBanner ()async
 {
-  final response = await http.get('$mainUrl$bannerUrl');
+  final response = await http.get(Uri.parse('$mainUrl$bannerUrl'));
   if(response.statusCode==200)
     return compute (parseBanner,response.body);
   else if (response.statusCode == 404)
@@ -36,7 +36,7 @@ List <FeatureImg> parseFeatureImage (String responseBody){
 //check code status FeatureImg
 Future<List<FeatureImg>> fetchFeatureImages ()async
 {
-  final response = await http.get('$mainUrl$featureUrl');
+  final response = await http.get(Uri.parse('$mainUrl$featureUrl'));
   if(response.statusCode==200)
     return compute (parseFeatureImage,response.body);
   else if (response.statusCode == 404)
@@ -55,7 +55,7 @@ List <MyCategory> parseCategory(String responseBody){
 //check code status Categories
 Future<List<MyCategory>> fetchCategories ()async
 {
-  final response = await http.get('$mainUrl$categoriesUrl');
+  final response = await http.get(Uri.parse('$mainUrl$categoriesUrl'));
   if(response.statusCode==200)
     return compute (parseCategory,response.body);
   else if (response.statusCode == 404)
@@ -74,7 +74,7 @@ List <Product> parseProduct(String responseBody){
 //check code status Categories
 Future<List<Product>> fetchProducts (id)async
 {
-  final response = await http.get('$mainUrl$productUrl/$id');
+  final response = await http.get(Uri.parse('$mainUrl$productUrl/$id'));
   if(response.statusCode==200)
     return compute (parseProduct,response.body);
   else if (response.statusCode == 404)
@@ -84,7 +84,7 @@ Future<List<Product>> fetchProducts (id)async
 }
 Future<List<Product>> fetchProductsBySubCategory (id)async
 {
-  final response = await http.get('$mainUrl$productUrl/$id');
+  final response = await http.get(Uri.parse('$mainUrl$productUrl/$id'));
   if(response.statusCode==200)
     return compute (parseProduct,response.body);
   else if (response.statusCode == 404)
@@ -103,7 +103,7 @@ Product parseProductDetail(String responseBody){
 //check code status Categories
 Future<Product> fetchProductsDetail (id)async
 {
-  final response = await http.get('$mainUrl$productDetail/$id');
+  final response = await http.get(Uri.parse('$mainUrl$productDetail/$id'));
   if(response.statusCode==200)
     return compute (parseProductDetail,response.body);
   else if (response.statusCode == 404)

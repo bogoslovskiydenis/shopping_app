@@ -33,10 +33,14 @@ dependencies:
   carousel_slider: any
   page_transition : any
   auto_size_text : any
+  floor: any
+  intl: any
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
+  floor_generator: any
+  build_runner: any
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
