@@ -5,15 +5,15 @@ import 'package:shopping_app/floor/entity/cart_product.dart';
 abstract class CartDAO {
   //select uid
   @Query('SELECT * FROM Cart WHERE uid=:uid')
-  Stream<List<Cart>> getAllItemInCartByUid(String uid);
+  Stream<List<Cart?>> getAllItemInCartByUid(String uid);
 
   //select uid / productId
   @Query('SELECT * FROM Cart WHERE uid=:uid and productId=:id ')
-  Future<Cart> getItemInCartByUid(String uid, int id);
+  Future<Cart?> getItemInCartByUid(String uid, int id);
 
   //delete uid
   @Query('DELETE FROM Cart WHERE uid=:uid')
-  Stream<List<Cart>> clearCartByUid(String uid);
+  Stream<List<Cart?>> clearCartByUid(String uid);
 
   //update uid
   @Query('UPDATE Cart SET uid=:uid')

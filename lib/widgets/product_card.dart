@@ -9,7 +9,7 @@ import 'package:flutter_riverpod/all.dart';
 class ProductCard extends StatelessWidget {
   final Product product;
 
-  ProductCard({Key key, this.product}) : super(key: key);
+  ProductCard({Key? key, required this.product}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -21,7 +21,7 @@ class ProductCard extends StatelessWidget {
             alignment: Alignment.bottomCenter,
             children: [
               Image.network(
-                product.productImages[0].imgUrl,
+                product.productImages![0].imgUrl,
                 fit: BoxFit.fill,
               ),
               product.productIsSale == true
@@ -57,6 +57,7 @@ class ProductCard extends StatelessWidget {
                 SizedBox(
                   height: 4.0,
                 ),
+                // ignore: unnecessary_null_comparison
                 product.productSubText == null
                     ? Container()
                     : Text('${product.productSubText}'),

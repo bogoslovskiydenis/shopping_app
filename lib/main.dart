@@ -28,10 +28,10 @@ class MyApp extends StatelessWidget {
         {
           case '/productList':
             return PageTransition(type: PageTransitionType.fade, child: ProductListPage(), settings: settings );
-        break;
+
           case '/productDetail':
             return PageTransition(type: PageTransitionType.fade, child: ProductDetailPage(), settings: settings );
-            break;
+
           default: return null;
         }
 
@@ -94,7 +94,7 @@ class MyHomePage extends ConsumerWidget {
                         SizedBox(
                           width: 30,
                         ),
-                        categories[index].categoryName.length <= 10
+                        categories[index].categoryName!.length <= 10
                             ? Text(categories[index].categoryName)
                             : Text(
                                 categories[index].categoryName,
@@ -102,7 +102,8 @@ class MyHomePage extends ConsumerWidget {
                               )
                       ],
                     ),
-                    children: _buildList(context ,categories[index]),
+                     // children: <Widget> [_buildList(context, categories[index])],
+                     children: _buildList(context ,categories[index]),
                   ),
                 ),
               );
@@ -150,7 +151,7 @@ class MyHomePage extends ConsumerWidget {
                           color: Colors.black,
                         ),
                         onPressed: () =>
-                            _scaffoldKey.currentState.openDrawer()),
+                            _scaffoldKey.currentState!.openDrawer()),
                     SizedBox(
                       height: 50,
                     ),
@@ -223,8 +224,9 @@ class MyHomePage extends ConsumerWidget {
 
   //in categoriest add sub categories
   _buildList(BuildContext context , MyCategory category) {
-    var list = new List<Widget>();
-    category.subCategories.forEach((element) {
+     // ignore: deprecated_member_use
+     List<Widget> list = [];
+    category.subCategories!.forEach((element) {
       list.add(GestureDetector(child: Padding(
         padding: const EdgeInsets.all(8),
         child: Text(

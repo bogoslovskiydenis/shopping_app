@@ -4,7 +4,7 @@ import 'package:shopping_app/model/product_size.dart';
 
 class SizeWidget extends StatelessWidget {
   final SizeModel sizeModel;
-  final ProductSizes productSizes;
+  final ProductSize productSizes;
 
   SizeWidget(this.sizeModel, this.productSizes);
 
@@ -16,7 +16,7 @@ class SizeWidget extends StatelessWidget {
         width: 50.0,
         height: 50.0,
         child: Center(
-          child: Text(sizeModel.productSizes.size.sizeName,
+          child: Text(sizeModel.productSizes.size!.sizeName,
             style: TextStyle(
                 color:sizeModel.productSizes.number == 0 ? Colors.white: sizeModel.isSelected ? Colors.white : Colors.black,
                 fontSize: 14),
@@ -36,7 +36,7 @@ class SizeWidget extends StatelessWidget {
 
 class SizeModel {
   bool isSelected;
-  final ProductSizes productSizes;
+  final ProductSize productSizes;
 
   SizeModel(this.isSelected, this.productSizes);
 }

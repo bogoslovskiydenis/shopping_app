@@ -1,25 +1,33 @@
+import 'dart:convert';
+
+List<MyBanner> myBannerFromJson(String str) => List<MyBanner>.from(json.decode(str).map((x) => MyBanner.fromJson(x)));
+
+String myBannerToJson(List<MyBanner> data) => json.encode(List<dynamic>.from(data.map((x) => x.toJson())));
+
 class MyBanner {
+  MyBanner({
+    required this.bannerImgId,
+    required this.bannerImgUrl,
+    this.categoryId,
+    required this.bannerText,
+  });
+
   int bannerImgId;
   String bannerImgUrl;
-  Null categoryId;
+  dynamic categoryId;
   String bannerText;
 
-  MyBanner(
-      {this.bannerImgId, this.bannerImgUrl, this.categoryId, this.bannerText});
+  factory MyBanner.fromJson(Map<String, dynamic> json) => MyBanner(
+    bannerImgId: json["bannerImgId"],
+    bannerImgUrl: json["bannerImgUrl"],
+    categoryId: json["categoryId"],
+    bannerText: json["bannerText"],
+  );
 
-  MyBanner.fromJson(Map<String, dynamic> json) {
-    bannerImgId = json['bannerImgId'];
-    bannerImgUrl = json['bannerImgUrl'];
-    categoryId = json['categoryId'];
-    bannerText = json['bannerText'];
-  }
-
-  Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['bannerImgId'] = this.bannerImgId;
-    data['bannerImgUrl'] = this.bannerImgUrl;
-    data['categoryId'] = this.categoryId;
-    data['bannerText'] = this.bannerText;
-    return data;
-  }
+  Map<String, dynamic> toJson() => {
+    "bannerImgId": bannerImgId,
+    "bannerImgUrl": bannerImgUrl,
+    "categoryId": categoryId,
+    "bannerText": bannerText,
+  };
 }

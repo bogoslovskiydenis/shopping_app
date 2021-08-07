@@ -1,11 +1,9 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:shopping_app/model/category.dart';
 import 'package:shopping_app/model/product.dart';
 import 'package:shopping_app/network/api_request.dart';
 import 'package:shopping_app/state/state_management.dart';
-import 'package:shopping_app/widgets/product_card.dart';
 import 'package:shopping_app/widgets/size_widget.dart';
 
 class ProductDetailPage extends ConsumerWidget {
@@ -40,7 +38,7 @@ class ProductDetailPage extends ConsumerWidget {
                       alignment: Alignment.center,
                       children: [
                         CarouselSlider(
-                            items: products.productImages
+                            items: products.productImages!
                                 .map((e) => Builder(
                                       builder: (context) {
                                         return Container(
@@ -112,9 +110,9 @@ class ProductDetailPage extends ConsumerWidget {
                     ),
                     products.productSizes != null
                         ? Wrap(
-                            children: products.productSizes
+                            children: products.productSizes!
                                 .map((size) => GestureDetector(
-                                      onTap: size.number > 0
+                                      onTap: size.number! > 0
                                           ? () {
                                               context
                                                   .read(productSizeSelected)
@@ -133,7 +131,7 @@ class ProductDetailPage extends ConsumerWidget {
                         : Container(),
                     /*warning*/
                     _productSizeSelected.number != null &&
-                            _productSizeSelected.number <= 5
+                            _productSizeSelected.number! <= 5
                         ? Center(
                             child: Text(
                               'Only ${_productSizeSelected.number} left',
@@ -169,6 +167,7 @@ class ProductDetailPage extends ConsumerWidget {
                               Expanded(
                                 child: RaisedButton(
                                   color: Colors.black,
+                                  onPressed: () {  },
                                   child: Text(
                                     'WishList',
                                     style: TextStyle(color: Colors.white),
@@ -179,15 +178,15 @@ class ProductDetailPage extends ConsumerWidget {
                               SizedBox(
                                 width: 20,
                               ),
-                              Expanded(
-                                child: RaisedButton(
-                                  color: Colors.black,
-                                  child: Text(
-                                    'Notify',
-                                    style: TextStyle(color: Colors.white),
-                                  ),
-                                ),
-                              )
+                              // Expanded(
+                              //   child:const RaisedButton(
+                              //     color: Colors.black,
+                              //     child: Text(
+                              //       'Notify',
+                              //       style: TextStyle(color: Colors.white),
+                              //     ),
+                              //   ),
+                              // )
                             ],
                           ),
                         )

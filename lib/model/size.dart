@@ -1,21 +1,23 @@
 class MySize {
+  MySize({
+    required this.sizeId,
+    required this.sizeName,
+    required this.productSizes,
+  });
+
   int sizeId;
   String sizeName;
-  List<Null> productSizes;
+  List<dynamic> productSizes;
 
-  MySize({this.sizeId, this.sizeName, this.productSizes});
+  factory MySize.fromJson(Map<String, dynamic> json) => MySize(
+    sizeId: json["sizeId"],
+    sizeName: json["sizeName"],
+    productSizes: List<dynamic>.from(json["productSizes"].map((x) => x)),
+  );
 
-  MySize.fromJson(Map<String, dynamic> json) {
-    sizeId = json['sizeId'];
-    sizeName = json['sizeName'];
-
-  }
-
-  Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['sizeId'] = this.sizeId;
-    data['sizeName'] = this.sizeName;
-
-    return data;
-  }
+  Map<String, dynamic> toJson() => {
+    "sizeId": sizeId,
+    "sizeName": sizeName,
+    "productSizes": List<dynamic>.from(productSizes.map((x) => x)),
+  };
 }

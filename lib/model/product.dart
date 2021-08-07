@@ -1,117 +1,132 @@
+// To parse this JSON data, do
+//
+//     final product = productFromJson(jsonString);
+
+import 'dart:convert';
+
 import 'package:shopping_app/model/product_size.dart';
 
+Product productFromJson(String str) => Product.fromJson(json.decode(str));
+
+String productToJson(Product data) => json.encode(data.toJson());
+
 class Product {
-  int productId;
-  String productName;
-  String productShortDescription;
-  String productDescription;
-  double productOldPrice;
-  double productNewPrice;
-  bool productIsSale;
-  Null productSaleText;
-  String productSubText;
-  int productOrderNumber;
-  String productCreateDate;
-  String productCode;
-  int subCategoryId;
+  Product({
+     required this.productId,
+     this.productName,
+     this.productShortDescription,
+     this.productDescription,
+     this.productOldPrice,
+     this.productNewPrice,
+     this.productIsSale,
+    this.productSaleText,
+     this.productSubText,
+     this.productOrderNumber,
+     this.productCreateDate,
+     this.productCode,
+     this.subCategoryId,
+    this.subCategory,
+     this.productColours,
+     this.productFabrics,
+     this.productImages,
+     this.productJacketModels,
+     this.productPatterns,
+     this.productSizes,
+  });
 
-  List<ProductImages> productImages;
-  List<ProductSizes> productSizes;
+  int/*!*/ productId;
+  String? productName;
+  String? productShortDescription;
+  String? productDescription;
+  double? productOldPrice;
+  double? productNewPrice;
+  bool? productIsSale;
+  dynamic? productSaleText;
+  String? productSubText;
+  int? productOrderNumber;
+  DateTime? productCreateDate;
+  String? productCode;
+  int? subCategoryId;
+  dynamic? subCategory;
+  List<dynamic>? productColours;
+  List<dynamic>? productFabrics;
+  List<ProductImage>? productImages;
+  List<dynamic>? productJacketModels;
+  List<dynamic>? productPatterns;
+  List<ProductSize>? productSizes;
 
-  Product(
-      {this.productId,
-        this.productName,
-        this.productShortDescription,
-        this.productDescription,
-        this.productOldPrice,
-        this.productNewPrice,
-        this.productIsSale,
-        this.productSaleText,
-        this.productSubText,
-        this.productOrderNumber,
-        this.productCreateDate,
-        this.productCode,
-        this.subCategoryId,
-        this.productImages,
-        });
+  factory Product.fromJson(Map<String, dynamic> json) => Product(
+    productId: json["productId"]as int,
+    productName: json["productName"],
+    productShortDescription: json["productShortDescription"],
+    productDescription: json["productDescription"],
+    productOldPrice: json["productOldPrice"]as double,
+    productNewPrice: json["productNewPrice"]as double,
+    productIsSale: json["productIsSale"],
+    productSaleText: json["productSaleText"],
+    productSubText: json["productSubText"],
+    productOrderNumber: json["productOrderNumber"]as int,
+    productCreateDate: DateTime.parse(json["productCreateDate"]),
+    productCode: json["productCode"],
+    subCategoryId: json["subCategoryId"]as int,
+    //
 
-  Product.fromJson(Map<String, dynamic> json) {
-    productId = json['productId'] as int ;
-    productName = json['productName'];
-    productShortDescription = json['productShortDescription'];
-    productDescription = json['productDescription'] ;
-    productOldPrice = json['productOldPrice'] as double;
-    productNewPrice = json['productNewPrice'] as double;
-    productIsSale = json['productIsSale'];
-    productSaleText = json['productSaleText'];
-    productSubText = json['productSubText'];
-    productOrderNumber = json['productOrderNumber'] as int;
-    productCreateDate = json['productCreateDate'];
-    productCode = json['productCode'];
-    subCategoryId = json['subCategoryId'] as int;
+    productColours: List<dynamic>.from(json["productColours"].map((x) => x)),
+    productFabrics: List<dynamic>.from(json["productFabrics"].map((x) => x)),
+    productImages: List<ProductImage>.from(json["productImages"].map((x) => ProductImage.fromJson(x))),
+    productJacketModels: List<dynamic>.from(json["productJacketModels"].map((x) => x)),
+    productPatterns: List<dynamic>.from(json["productPatterns"].map((x) => x)),
+    productSizes: List<ProductSize>.from(json["productSizes"].map((x) => ProductSize.fromJson(x))),
+  );
 
-
-    if (json['productSizes'] != null) {
-      productSizes = new List<ProductSizes>();
-      json['productSizes'].forEach((v) {
-        productSizes.add(new ProductSizes.fromJson(v));
-      });
-    }
-
-    if (json['productImages'] != null) {
-      productImages = new List<ProductImages>();
-      json['productImages'].forEach((v) {
-        productImages.add(new ProductImages.fromJson(v));
-      });
-    }
-  }
-
-  Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['productId'] = this.productId;
-    data['productName'] = this.productName;
-    data['productShortDescription'] = this.productShortDescription;
-    data['productDescription'] = this.productDescription;
-    data['productOldPrice'] = this.productOldPrice;
-    data['productNewPrice'] = this.productNewPrice;
-    data['productIsSale'] = this.productIsSale;
-    data['productSaleText'] = this.productSaleText;
-    data['productSubText'] = this.productSubText;
-    data['productOrderNumber'] = this.productOrderNumber;
-    data['productCreateDate'] = this.productCreateDate;
-    data['productCode'] = this.productCode;
-    data['subCategoryId'] = this.subCategoryId;
-
-    if (this.productImages != null) {
-      data['productImages'] =
-          this.productImages.map((v) => v.toJson()).toList();
-    }
-    if (this.productSizes != null) {
-      data['productSizes'] = this.productSizes.map((v) => v.toJson()).toList();
-    }
-
-    return data;
-  }
+  Map<String, dynamic> toJson() => {
+    "productId": productId,
+    "productName": productName,
+    "productShortDescription": productShortDescription,
+    "productDescription": productDescription,
+    "productOldPrice": productOldPrice,
+    "productNewPrice": productNewPrice,
+    "productIsSale": productIsSale,
+    "productSaleText": productSaleText,
+    "productSubText": productSubText,
+    "productOrderNumber": productOrderNumber,
+    "productCreateDate": productCreateDate!.toIso8601String(),
+    "productCode": productCode,
+    "subCategoryId": subCategoryId,
+    "subCategory": subCategory,
+    "productColours": List<dynamic>.from(productColours!.map((x) => x)),
+    "productFabrics": List<dynamic>.from(productFabrics!.map((x) => x)),
+    "productImages": List<dynamic>.from(productImages!.map((x) => x.toJson())),
+    "productJacketModels": List<dynamic>.from(productJacketModels!.map((x) => x)),
+    "productPatterns": List<dynamic>.from(productPatterns!.map((x) => x)),
+    "productSizes": List<dynamic>.from(productSizes!.map((x) => x.toJson())),
+  };
 }
 
-class ProductImages {
+class ProductImage {
+  ProductImage({
+    required this.imgId,
+    required this.imgUrl,
+    required this.productId,
+  });
+
   int imgId;
   String imgUrl;
   int productId;
 
-  ProductImages({this.imgId, this.imgUrl, this.productId});
+  factory ProductImage.fromJson(Map<String, dynamic> json) => ProductImage(
+    imgId: json["imgId"],
+    imgUrl: json["imgUrl"],
+    productId: json["productId"],
+  );
 
-  ProductImages.fromJson(Map<String, dynamic> json) {
-    imgId = json['imgId'];
-    imgUrl = json['imgUrl'];
-    productId = json['productId'];
-  }
-
-  Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['imgId'] = this.imgId;
-    data['imgUrl'] = this.imgUrl;
-    data['productId'] = this.productId;
-    return data;
-  }
+  Map<String, dynamic> toJson() => {
+    "imgId": imgId,
+    "imgUrl": imgUrl,
+    "productId": productId,
+  };
 }
+
+
+
+

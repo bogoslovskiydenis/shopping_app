@@ -1,65 +1,65 @@
+// To parse this JSON data, do
+//
+//     final myCategory = myCategoryFromJson(jsonString);
+
+import 'dart:convert';
+
+List<MyCategory> myCategoryFromJson(String str) => List<MyCategory>.from(json.decode(str).map((x) => MyCategory.fromJson(x)));
+
+String myCategoryToJson(List<MyCategory> data) => json.encode(List<dynamic>.from(data.map((x) => x.toJson())));
+
 class MyCategory {
-  int categoryId;
-  String categoryName;
-  String categoryImg;
-  List<SubCategories> subCategories;
+  MyCategory({
+     this.categoryId,
+     required this.categoryName,
+      required this.categoryImg,
+     this.subCategories,
+  });
 
-  MyCategory(
-      {this.categoryId,
-        this.categoryName,
-        this.categoryImg,
-        this.subCategories});
+  int? categoryId;
+  String/*!*/ categoryName;
+  String/*!*/ categoryImg;
+  List<SubCategory>? subCategories;
 
-  MyCategory.fromJson(Map<String, dynamic> json) {
-    categoryId = json['categoryId'];
-    categoryName = json['categoryName'];
-    categoryImg = json['categoryImg'];
-    if (json['subCategories'] != null) {
-      subCategories = new List<SubCategories>();
-      json['subCategories'].forEach((v) {
-        subCategories.add(new SubCategories.fromJson(v));
-      });
-    }
-  }
+  factory MyCategory.fromJson(Map<String, dynamic> json) => MyCategory(
+    categoryId: json["categoryId"],
+    categoryName: json["categoryName"],
+    categoryImg: json["categoryImg"],
+    subCategories: List<SubCategory>.from(json["subCategories"].map((x) => SubCategory.fromJson(x))),
+  );
 
-  Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['categoryId'] = this.categoryId;
-    data['categoryName'] = this.categoryName;
-    data['categoryImg'] = this.categoryImg;
-    if (this.subCategories != null) {
-      data['subCategories'] =
-          this.subCategories.map((v) => v.toJson()).toList();
-    }
-    return data;
-  }
+  Map<String, dynamic> toJson() => {
+    "categoryId": categoryId,
+    "categoryName": categoryName,
+    "categoryImg": categoryImg,
+    "subCategories": List<dynamic>.from(subCategories!.map((x) => x.toJson())),
+  };
 }
 
-class SubCategories {
-  int subCategoryId;
+class SubCategory {
+  SubCategory({
+     required this.subCategoryId,
+     required this.subCategoryName,
+     this.categoryId,
+     this.products,
+  });
+
+  int/*!*/ subCategoryId;
   String subCategoryName;
-  int categoryId;
-  List<Null> products;
+  int? categoryId;
+  List<dynamic>? products;
 
-  SubCategories(
-      {this.subCategoryId,
-        this.subCategoryName,
-        this.categoryId,
-        this.products});
+  factory SubCategory.fromJson(Map<String, dynamic> json) => SubCategory(
+    subCategoryId: json["subCategoryId"],
+    subCategoryName: json["subCategoryName"],
+    categoryId: json["categoryId"],
+    products: List<dynamic>.from(json["products"].map((x) => x)),
+  );
 
-  SubCategories.fromJson(Map<String, dynamic> json) {
-    subCategoryId = json['subCategoryId'];
-    subCategoryName = json['subCategoryName'];
-    categoryId = json['categoryId'];
-
-  }
-
-  Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['subCategoryId'] = this.subCategoryId;
-    data['subCategoryName'] = this.subCategoryName;
-    data['categoryId'] = this.categoryId;
-
-    return data;
-  }
+  Map<String, dynamic> toJson() => {
+    "subCategoryId": subCategoryId,
+    "subCategoryName": subCategoryName,
+    "categoryId": categoryId,
+    "products": List<dynamic>.from(products!.map((x) => x)),
+  };
 }

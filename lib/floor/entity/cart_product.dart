@@ -6,15 +6,14 @@ class Cart {
   final int productId;
   final String uid, name, imageUrl, size, code;
 
-  Cart(
-      {this.productId,
+  Cart(this.productId,
       this.uid,
       this.name,
       this.imageUrl,
       this.size,
       this.code,
       this.price,
-      this.quantity});
+      this.quantity);
 
   double price;
   int quantity;

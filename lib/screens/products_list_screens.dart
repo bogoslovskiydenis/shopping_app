@@ -58,7 +58,7 @@ class ProductListPage extends ConsumerWidget {
                               )
                       ],
                     ),
-                    children: _buildList(categories[index]),
+                     children: _buildList(categories[index]),
                   ),
                 ),
               );
@@ -89,27 +89,27 @@ class ProductListPage extends ConsumerWidget {
                           color: Colors.black,
                         ),
                         onPressed: () =>
-                            _scaffoldKey.currentState.openDrawer()),
+                            _scaffoldKey.currentState!.openDrawer()),
                     Text(
                       "Shopping App",
                       style:
                           TextStyle(fontSize: 28, fontWeight: FontWeight.bold),
                     ),
                     Row(
-                      children: [
+                      children:<Widget> [
                         IconButton(
-                          icon: Icon(
+                          icon:const Icon(
                             Icons.account_circle_rounded,
                             size: 35,
                             color: Colors.black,
-                          ),
+                          ), onPressed: () {  },
                         ),
                         IconButton(
                           icon: Icon(
                             Icons.shopping_bag_outlined,
                             size: 35,
                             color: Colors.black,
-                          ),
+                          ), onPressed: () {  },
                         ),
                       ],
                     ),
@@ -158,8 +158,8 @@ class ProductListPage extends ConsumerWidget {
   }
 
   _buildList(MyCategory category) {
-    var list = new List<Widget>();
-    category.subCategories.forEach((element) {
+    var list = <Widget?>[];
+    category.subCategories!.forEach((element) {
       list.add(Padding(
         padding: const EdgeInsets.all(8),
         child: Text(
