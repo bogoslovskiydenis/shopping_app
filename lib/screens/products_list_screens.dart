@@ -109,7 +109,7 @@ class ProductListPage extends ConsumerWidget {
                             Icons.shopping_bag_outlined,
                             size: 35,
                             color: Colors.black,
-                          ), onPressed: () {  },
+                          ), onPressed: ()=> Navigator.of(context).pushNamed('/cartDetail'),
                         ),
                       ],
                     ),

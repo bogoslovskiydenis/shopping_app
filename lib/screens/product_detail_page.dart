@@ -2,6 +2,7 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:shopping_app/floor/dao/cart_dao.dart';
+import 'package:shopping_app/floor/dao/const.dart';
 import 'package:shopping_app/floor/entity/cart_product.dart';
 import 'package:shopping_app/model/product.dart';
 import 'package:shopping_app/network/api_request.dart';
@@ -175,7 +176,7 @@ class ProductDetailPage extends ConsumerWidget {
                                           //get product
                                           //not implement sign in , UID null
                                           var cartProduct = await dao
-                                              .getItemInCartByUid('Not_sign_in',
+                                              .getItemInCartByUid(NOT_SIGN_IN,
                                               products.productId);
                                           if (cartProduct != null) {
                                             //if alryeady avaible item in cart
@@ -190,7 +191,7 @@ class ProductDetailPage extends ConsumerWidget {
                                               size: _productSizeSelected.size!.sizeName,
                                               imageUrl : products.productImages![0].imgUrl,
                                               name: products.productName,
-                                              uid: 'Not_sign_in'
+                                              uid: NOT_SIGN_IN
 
                                             );
                                             await dao.insertCart(cart);
@@ -290,6 +291,6 @@ class ProductDetailPage extends ConsumerWidget {
   }
 
   void showSnackBar(BuildContext context, String s) {
-    Scaffold.of(context).showSnackBar(SnackBar(content: Text('$s'),action: SnackBarAction(label: 'View Bag',onPressed: (){},),));
+    Scaffold.of(context).showSnackBar(SnackBar(content: Text('$s'),action: SnackBarAction(label: 'View Bag',onPressed: ()=> Navigator.of(context).pushNamed('/cartDetail'),),));
   }
 }

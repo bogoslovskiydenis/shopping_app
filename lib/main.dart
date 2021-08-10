@@ -7,6 +7,7 @@ import 'package:page_transition/page_transition.dart';
 import 'package:shopping_app/floor/database/database.dart';
 import 'package:shopping_app/model/category.dart';
 import 'package:shopping_app/model/product.dart';
+import 'package:shopping_app/screens/cart_detail.dart';
 import 'package:shopping_app/screens/product_detail_page.dart';
 import 'package:shopping_app/screens/products_list_screens.dart';
 import 'package:shopping_app/state/state_management.dart';
@@ -43,6 +44,8 @@ class MyApp extends StatelessWidget {
           case '/productDetail':
             return PageTransition(type: PageTransitionType.fade, child: ProductDetailPage(dao : dao), settings: settings );
 
+            case '/cartDetail':
+        return PageTransition(type: PageTransitionType.fade, child: CartDetail(dao : dao), settings: settings );
           default: return null;
         }
 
