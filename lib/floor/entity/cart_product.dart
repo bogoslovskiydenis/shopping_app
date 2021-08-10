@@ -4,16 +4,17 @@ import 'package:floor/floor.dart';
 class Cart {
   @primaryKey
   final int productId;
-  final String uid, name, imageUrl, size, code;
+  final String? uid, name, imageUrl, size, code;
 
-  Cart(this.productId,
+  Cart(
+      {required this.productId,
       this.uid,
       this.name,
       this.imageUrl,
       this.size,
       this.code,
-      this.price,
-      this.quantity);
+      required this.price,
+      required this.quantity});
 
   double price;
   int quantity;

@@ -17,7 +17,7 @@ class Product {
      this.productShortDescription,
      this.productDescription,
      this.productOldPrice,
-     this.productNewPrice,
+     required this.productNewPrice,
      this.productIsSale,
     this.productSaleText,
      this.productSubText,
@@ -39,7 +39,7 @@ class Product {
   String? productShortDescription;
   String? productDescription;
   double? productOldPrice;
-  double? productNewPrice;
+  double/*!*/ productNewPrice;
   bool? productIsSale;
   dynamic? productSaleText;
   String? productSubText;

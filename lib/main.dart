@@ -4,20 +4,31 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:page_transition/page_transition.dart';
+import 'package:shopping_app/floor/database/database.dart';
 import 'package:shopping_app/model/category.dart';
 import 'package:shopping_app/model/product.dart';
 import 'package:shopping_app/screens/product_detail_page.dart';
 import 'package:shopping_app/screens/products_list_screens.dart';
 import 'package:shopping_app/state/state_management.dart';
 
+import 'floor/dao/cart_dao.dart';
 import 'network/api_request.dart';
 
-void main() {
 
-    runApp(ProviderScope(child: MyApp()));
+
+Future<void> main() async{
+  WidgetsFlutterBinding.ensureInitialized();
+  final database = await $FloorAppDatabase.databaseBuilder('cart_shopping_app.db').build();
+  final dao = database.cartDao;
+
+  runApp(ProviderScope(child: MyApp(dao : dao)));
 }
 
 class MyApp extends StatelessWidget {
+
+  final CartDAO dao;
+  MyApp({required this.dao});
+
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
@@ -30,7 +41,7 @@ class MyApp extends StatelessWidget {
             return PageTransition(type: PageTransitionType.fade, child: ProductListPage(), settings: settings );
 
           case '/productDetail':
-            return PageTransition(type: PageTransitionType.fade, child: ProductDetailPage(), settings: settings );
+            return PageTransition(type: PageTransitionType.fade, child: ProductDetailPage(dao : dao), settings: settings );
 
           default: return null;
         }
@@ -44,6 +55,8 @@ class MyApp extends StatelessWidget {
       home: MyHomePage(),
     );
   }
+
+
 }
 
 class MyHomePage extends ConsumerWidget {
@@ -94,7 +107,7 @@ class MyHomePage extends ConsumerWidget {
                         SizedBox(
                           width: 30,
                         ),
-                        categories[index].categoryName!.length <= 10
+                        categories[index].categoryName.length <= 10
                             ? Text(categories[index].categoryName)
                             : Text(
                                 categories[index].categoryName,
