@@ -38,6 +38,8 @@ dependencies:
   floor_generator: ^1.1.0
   floor: ^1.1.0
   build_runner: ^2.1.0
+  flutter_slidable: any
+  flutter_elegant_number_button: any
 
 dev_dependencies:
   flutter_test:

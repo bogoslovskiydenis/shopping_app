@@ -16,5 +16,5 @@ class Cart {
       this.price, required this.quantity});
 
   double? price;
-  int quantity;
+  int? quantity;
 }

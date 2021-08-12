@@ -179,7 +179,7 @@ class ProductDetailPage extends ConsumerWidget {
                                               .getItemInCartByUid(NOT_SIGN_IN, product.productId);
                                           if (cartProduct != null ) {
                                             //if alryeady avaible item in cart
-                                            cartProduct.quantity += 1;
+                                            cartProduct.quantity = 1;
                                             showSnackBar(
                                                 context, 'Update item in bag');
                                           } else {
