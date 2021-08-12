@@ -40,7 +40,7 @@ class ProductDetailPage extends ConsumerWidget {
               Expanded(
                   child: productsApiResult.when(
                     /*Image Scroll*/
-                    data: (products) =>
+                    data: (product) =>
                         SingleChildScrollView(
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
@@ -50,7 +50,7 @@ class ProductDetailPage extends ConsumerWidget {
                                 alignment: Alignment.center,
                                 children: [
                                   CarouselSlider(
-                                      items: products.productImages!
+                                      items: product.productImages!
                                           .map((e) =>
                                           Builder(
                                             builder: (context) {
@@ -79,7 +79,7 @@ class ProductDetailPage extends ConsumerWidget {
                               Padding(
                                 padding: const EdgeInsets.all(8),
                                 child: Text(
-                                  '${products.productName}',
+                                  '${product.productName}',
                                   style: TextStyle(fontSize: 20),
                                 ),
                               ),
@@ -92,15 +92,15 @@ class ProductDetailPage extends ConsumerWidget {
                                   children: [
                                     Text.rich(TextSpan(children: [
                                       TextSpan(
-                                          text: products.productOldPrice == 0
+                                          text: product.productOldPrice == 0
                                               ? ''
-                                              : '\$${products.productOldPrice}',
+                                              : '\$${product.productOldPrice}',
                                           style: TextStyle(
                                               color: Colors.grey,
                                               decoration: TextDecoration
                                                   .lineThrough)),
                                       TextSpan(
-                                          text: '\$${products.productNewPrice}',
+                                          text: '\$${product.productNewPrice}',
                                           style: TextStyle(fontSize: 14))
                                     ]))
                                   ],
@@ -110,7 +110,7 @@ class ProductDetailPage extends ConsumerWidget {
                               Padding(
                                 padding: const EdgeInsets.all(8),
                                 child: Text(
-                                  '${products.productShortDescription}',
+                                  '${product.productShortDescription}',
                                   style: TextStyle(fontSize: 14),
                                   textAlign: TextAlign.justify,
                                 ),
@@ -126,9 +126,9 @@ class ProductDetailPage extends ConsumerWidget {
                                   textAlign: TextAlign.justify,
                                 ),
                               ),
-                              products.productSizes != null
+                              product.productSizes != null
                                   ? Wrap(
-                                children: products.productSizes!
+                                children: product.productSizes!
                                     .map((size) =>
                                     GestureDetector(
                                       onTap: size.number! > 0
@@ -176,23 +176,22 @@ class ProductDetailPage extends ConsumerWidget {
                                           //get product
                                           //not implement sign in , UID null
                                           var cartProduct = await dao
-                                              .getItemInCartByUid(NOT_SIGN_IN,
-                                              products.productId);
-                                          if (cartProduct != null) {
+                                              .getItemInCartByUid(NOT_SIGN_IN, product.productId);
+                                          if (cartProduct != null ) {
                                             //if alryeady avaible item in cart
                                             cartProduct.quantity += 1;
                                             showSnackBar(
                                                 context, 'Update item in bag');
                                           } else {
-                                            Cart cart = new Cart (
-                                                productId: products.productId,
-                                              price: products.productNewPrice,
-                                              quantity: 1,
-                                              size: _productSizeSelected.size!.sizeName,
-                                              imageUrl : products.productImages![0].imgUrl,
-                                              name: products.productName,
-                                              uid: NOT_SIGN_IN
-
+                                            Cart cart = Cart(
+                                                productId: product.productId
+                                        ,
+                                        price: product.productNewPrice,
+                                        quantity: 1,
+                                        size: _productSizeSelected.size!.sizeName,
+                                        imageUrl : product.productImages![0].imgUrl,
+                                        name: product.productName,
+                                        uid: NOT_SIGN_IN, code: ''
                                             );
                                             await dao.insertCart(cart);
                                             showSnackBar(
@@ -264,7 +263,7 @@ class ProductDetailPage extends ConsumerWidget {
                               Padding(
                                 padding: const EdgeInsets.all(8),
                                 child: Text(
-                                  '${products.productDescription}',
+                                  '${product.productDescription}',
                                   style: TextStyle(
                                       fontSize: 14,
                                       decoration: TextDecoration.underline),

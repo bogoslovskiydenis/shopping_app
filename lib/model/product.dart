@@ -12,18 +12,18 @@ String productToJson(Product data) => json.encode(data.toJson());
 
 class Product {
   Product({
-     required this.productId,
-     this.productName,
-     this.productShortDescription,
-     this.productDescription,
+      required this.productId,
+     required this.productName,
+     required this.productShortDescription,
+     required this.productDescription,
      this.productOldPrice,
-     required this.productNewPrice,
+      this.productNewPrice,
      this.productIsSale,
     this.productSaleText,
-     this.productSubText,
-     this.productOrderNumber,
+     required this.productSubText,
+      this.productOrderNumber,
      this.productCreateDate,
-     this.productCode,
+     required this.productCode,
      this.subCategoryId,
     this.subCategory,
      this.productColours,
@@ -34,18 +34,18 @@ class Product {
      this.productSizes,
   });
 
-  int/*!*/ productId;
-  String? productName;
-  String? productShortDescription;
-  String? productDescription;
+  int productId;
+  String productName;
+  String productShortDescription;
+  String productDescription;
   double? productOldPrice;
-  double/*!*/ productNewPrice;
+  double? productNewPrice;
   bool? productIsSale;
   dynamic? productSaleText;
-  String? productSubText;
+  String productSubText;
   int? productOrderNumber;
   DateTime? productCreateDate;
-  String? productCode;
+  String productCode;
   int? subCategoryId;
   dynamic? subCategory;
   List<dynamic>? productColours;

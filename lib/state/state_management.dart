@@ -5,5 +5,6 @@ import 'package:shopping_app/model/product.dart';
 import 'package:shopping_app/model/product_size.dart';
 
 final subCategorySelected = StateProvider((ref)=> SubCategory(subCategoryName: '', subCategoryId: 0));
-final productSelected = StateProvider((ref)=> Product(productId: 0, productNewPrice: 0.0));
+final productSelected = StateProvider((ref)=> Product(productName: '', productShortDescription: '',
+    productDescription: '', productSubText: '', productCode: '', productId: 0));
 final productSizeSelected = StateProvider ((ref)=> ProductSize());

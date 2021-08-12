@@ -19,7 +19,7 @@ import 'network/api_request.dart';
 
 Future<void> main() async{
   WidgetsFlutterBinding.ensureInitialized();
-  final database = await $FloorAppDatabase.databaseBuilder('cart_shopping_app.db').build();
+  final database = await $FloorAppDatabase.databaseBuilder('shopping_app.db').build();
   final dao = database.cartDao;
 
   runApp(ProviderScope(child: MyApp(dao : dao)));
