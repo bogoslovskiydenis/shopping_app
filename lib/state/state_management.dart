@@ -1,4 +1,6 @@
 
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_riverpod/all.dart';
 import 'package:shopping_app/model/category.dart';
 import 'package:shopping_app/model/product.dart';
@@ -8,3 +10,4 @@ final subCategorySelected = StateProvider((ref)=> SubCategory(subCategoryName: '
 final productSelected = StateProvider((ref)=> Product(productName: '', productShortDescription: '',
     productDescription: '', productSubText: '', productCode: '', productId: 0));
 final productSizeSelected = StateProvider ((ref)=> ProductSize());
+final userLogged = StateProvider ((ref)=> FirebaseAuth.instance.currentUser);

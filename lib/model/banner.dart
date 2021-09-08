@@ -6,10 +6,10 @@ String myBannerToJson(List<MyBanner> data) => json.encode(List<dynamic>.from(dat
 
 class MyBanner {
   MyBanner({
-    required this.bannerImgId,
-    required this.bannerImgUrl,
+     this.bannerImgId,
+     this.bannerImgUrl,
     this.categoryId,
-    required this.bannerText,
+     this.bannerText,
   });
 
   int bannerImgId;

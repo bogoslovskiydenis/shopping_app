@@ -4,3 +4,4 @@ final bannerUrl = 'Banners';
 final categoriesUrl = 'Categories';
 final productUrl = 'productsBySubCategoty';
 final productDetail = 'products';
+final userPath = 'userPath';

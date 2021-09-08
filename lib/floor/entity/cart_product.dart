@@ -7,14 +7,13 @@ class Cart {
   final String uid, name, imageUrl, size, code;
 
   Cart(
-      { required this.productId,
-      required this.uid,
-        required  this.name,
-        required this.imageUrl,
-        required this.size,
-        required this.code,
-      this.price, required this.quantity});
-
-  double? price;
-  int? quantity;
+      {  this.productId,
+       this.uid,
+          this.name,
+         this.imageUrl,
+         this.size,
+         this.code,
+      this.price,  this.quantity});
+  double price;
+  int quantity;
 }

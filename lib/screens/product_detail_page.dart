@@ -1,6 +1,7 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:shopping_app/const/utils.dart';
 import 'package:shopping_app/floor/dao/cart_dao.dart';
 import 'package:shopping_app/floor/dao/const.dart';
 import 'package:shopping_app/floor/entity/cart_product.dart';
@@ -12,7 +13,7 @@ import 'package:shopping_app/widgets/size_widget.dart';
 class ProductDetailPage extends ConsumerWidget {
   final CartDAO dao;
 
-  ProductDetailPage({required this.dao});
+  ProductDetailPage({ this.dao});
 
   //ignore: top_level_function_literal_block
   final _fetchProductById =
@@ -50,7 +51,7 @@ class ProductDetailPage extends ConsumerWidget {
                                 alignment: Alignment.center,
                                 children: [
                                   CarouselSlider(
-                                      items: product.productImages!
+                                      items: product.productImages
                                           .map((e) =>
                                           Builder(
                                             builder: (context) {
@@ -128,10 +129,10 @@ class ProductDetailPage extends ConsumerWidget {
                               ),
                               product.productSizes != null
                                   ? Wrap(
-                                children: product.productSizes!
+                                children: product.productSizes
                                     .map((size) =>
                                     GestureDetector(
-                                      onTap: size.number! > 0
+                                      onTap: size.number > 0
                                           ? () {
                                         context
                                             .read(productSizeSelected)
@@ -150,7 +151,7 @@ class ProductDetailPage extends ConsumerWidget {
                                   : Container(),
                               /*warning*/
                               _productSizeSelected.number != null &&
-                                  _productSizeSelected.number! <= 5
+                                  _productSizeSelected.number <= 5
                                   ? Center(
                                 child: Text(
                                   'Only ${_productSizeSelected.number} left',
@@ -180,7 +181,7 @@ class ProductDetailPage extends ConsumerWidget {
                                           if (cartProduct != null ) {
                                             //if alryeady avaible item in cart
                                             cartProduct.quantity = 1;
-                                            showSnackBar(
+                                            showSnackBarWithViewBag(
                                                 context, 'Update item in bag');
                                           } else {
                                             Cart cart = Cart(
@@ -188,17 +189,17 @@ class ProductDetailPage extends ConsumerWidget {
                                         ,
                                         price: product.productNewPrice,
                                         quantity: 1,
-                                        size: _productSizeSelected.size!.sizeName,
-                                        imageUrl : product.productImages![0].imgUrl,
+                                        size: _productSizeSelected.size.sizeName,
+                                        imageUrl : product.productImages[0].imgUrl,
                                         name: product.productName,
                                         uid: NOT_SIGN_IN, code: ''
                                             );
                                             await dao.insertCart(cart);
-                                            showSnackBar(
+                                            showSnackBarWithViewBag(
                                                 context, 'Add item to bag');
                                           }
                                         } catch (e) {
-                                          showSnackBar(
+                                          showOnlySnackBar(
                                               context, '$e');
                                         }
                                       },
@@ -289,7 +290,4 @@ class ProductDetailPage extends ConsumerWidget {
     );
   }
 
-  void showSnackBar(BuildContext context, String s) {
-    Scaffold.of(context).showSnackBar(SnackBar(content: Text('$s'),action: SnackBarAction(label: 'View Bag',onPressed: ()=> Navigator.of(context).pushNamed('/cartDetail'),),));
-  }
 }

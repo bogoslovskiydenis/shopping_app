@@ -113,3 +113,18 @@ Future<Product> fetchProductsDetail (id)async
 }
 
 //endregion:
+
+//region : User Api
+
+Future<String> findUser (id)async
+{
+  final response = await http.get(Uri.parse('$mainUrl$userPath/$id'));
+  if(response.statusCode==200)
+    return 'User found';
+  else if (response.statusCode == 404)
+    return 'Not found';
+  else
+    throw Exception ('Cannot get User by id');
+}
+
+//endregion:

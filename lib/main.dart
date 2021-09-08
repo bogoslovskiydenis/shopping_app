@@ -1,4 +1,5 @@
 import 'package:carousel_slider/carousel_slider.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -28,7 +29,7 @@ Future<void> main() async{
 class MyApp extends StatelessWidget {
 
   final CartDAO dao;
-  MyApp({required this.dao});
+  MyApp({ this.dao});
 
   // This widget is the root of your application.
   @override
@@ -81,6 +82,13 @@ class MyHomePage extends ConsumerWidget {
     return result;
   });
 
+  //init Firebase
+  //ignore: top_level_function_literal_block
+  final _initFirebase = FutureProvider((ref) async {
+    var result = await Firebase.initializeApp();
+    return result;
+  });
+
   GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
@@ -89,6 +97,8 @@ class MyHomePage extends ConsumerWidget {
     var bannerApiResult = watch(_fetchBanner);
     var featureImgApiResult = watch(_fetchFeatureImg);
     var categoriesApiResult = watch(_fetchCategories);
+    //init Firebase
+    var initApp = watch(_initFirebase);
 
     return Scaffold(
       key: _scaffoldKey,
@@ -167,7 +177,7 @@ class MyHomePage extends ConsumerWidget {
                           color: Colors.black,
                         ),
                         onPressed: () =>
-                            _scaffoldKey.currentState!.openDrawer()),
+                            _scaffoldKey.currentState.openDrawer()),
                     SizedBox(
                       height: 50,
                     ),
@@ -242,7 +252,7 @@ class MyHomePage extends ConsumerWidget {
   _buildList(BuildContext context , MyCategory category) {
      // ignore: deprecated_member_use
      List<Widget> list = [];
-    category.subCategories!.forEach((element) {
+    category.subCategories.forEach((element) {
       list.add(GestureDetector(child: Padding(
         padding: const EdgeInsets.all(8),
         child: Text(

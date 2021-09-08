@@ -11,15 +11,15 @@ String myCategoryToJson(List<MyCategory> data) => json.encode(List<dynamic>.from
 class MyCategory {
   MyCategory({
      this.categoryId,
-     required this.categoryName,
-      required this.categoryImg,
+      this.categoryName,
+       this.categoryImg,
      this.subCategories,
   });
 
-  int? categoryId;
+  int categoryId;
   String/*!*/ categoryName;
   String/*!*/ categoryImg;
-  List<SubCategory>? subCategories;
+  List<SubCategory> subCategories;
 
   factory MyCategory.fromJson(Map<String, dynamic> json) => MyCategory(
     categoryId: json["categoryId"],
@@ -32,22 +32,22 @@ class MyCategory {
     "categoryId": categoryId,
     "categoryName": categoryName,
     "categoryImg": categoryImg,
-    "subCategories": List<dynamic>.from(subCategories!.map((x) => x.toJson())),
+    "subCategories": List<dynamic>.from(subCategories.map((x) => x.toJson())),
   };
 }
 
 class SubCategory {
   SubCategory({
-     required this.subCategoryId,
-     required this.subCategoryName,
+      this.subCategoryId,
+      this.subCategoryName,
      this.categoryId,
      this.products,
   });
 
   int/*!*/ subCategoryId;
   String subCategoryName;
-  int? categoryId;
-  List<dynamic>? products;
+  int categoryId;
+  List<dynamic> products;
 
   factory SubCategory.fromJson(Map<String, dynamic> json) => SubCategory(
     subCategoryId: json["subCategoryId"],
@@ -60,6 +60,6 @@ class SubCategory {
     "subCategoryId": subCategoryId,
     "subCategoryName": subCategoryName,
     "categoryId": categoryId,
-    "products": List<dynamic>.from(products!.map((x) => x)),
+    "products": List<dynamic>.from(products.map((x) => x)),
   };
 }

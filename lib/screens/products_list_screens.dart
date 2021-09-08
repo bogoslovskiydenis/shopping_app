@@ -1,5 +1,10 @@
+import 'package:firebase_auth/firebase_auth.dart' as FirebaseAuth;
+import 'package:firebase_auth_ui/firebase_auth_ui.dart';
+import 'package:firebase_auth_ui/providers.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:shopping_app/const/utils.dart';
 import 'package:shopping_app/model/category.dart';
 import 'package:shopping_app/model/product.dart';
 import 'package:shopping_app/network/api_request.dart';
@@ -20,7 +25,7 @@ class ProductListPage extends ConsumerWidget {
     return result;
   });
 
- final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
+  final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
   Widget build(BuildContext context,
@@ -29,6 +34,8 @@ class ProductListPage extends ConsumerWidget {
 
     var productsApiResult = watch(_fetchProductBySubCategory(
         context.read(subCategorySelected).state.subCategoryId));
+
+    var userWatch =watch(userLogged);
 
     return Scaffold(
       key: _scaffoldKey,
@@ -58,7 +65,7 @@ class ProductListPage extends ConsumerWidget {
                               )
                       ],
                     ),
-                     children: _buildList(categories[index]),
+                    children: _buildList(categories[index]),
                   ),
                 ),
               );
@@ -89,27 +96,34 @@ class ProductListPage extends ConsumerWidget {
                           color: Colors.black,
                         ),
                         onPressed: () =>
-                            _scaffoldKey.currentState!.openDrawer()),
+                            _scaffoldKey.currentState.openDrawer()),
                     Text(
                       "Shopping App",
                       style:
                           TextStyle(fontSize: 28, fontWeight: FontWeight.bold),
                     ),
                     Row(
-                      children:<Widget> [
-                        IconButton(
-                          icon:const Icon(
-                            Icons.account_circle_rounded,
-                            size: 35,
-                            color: Colors.black,
-                          ), onPressed: () {  },
-                        ),
+                      children: [
+                        FutureBuilder(
+                            future: _checkLoginState(),
+                            builder: (context, snapshot) {
+                          var user = snapshot.data as FirebaseAuth.User;
+                          return IconButton(
+                            icon: Icon(
+                                user == null ? Icons.account_circle  : Icons.exit_to_app,
+                                size: 35,
+                                color: Colors.black),
+                            onPressed: () => processLogin(context),
+                          );
+                        }),
                         IconButton(
                           icon: Icon(
                             Icons.shopping_bag_outlined,
                             size: 35,
                             color: Colors.black,
-                          ), onPressed: ()=> Navigator.of(context).pushNamed('/cartDetail'),
+                          ),
+                          onPressed: () =>
+                              Navigator.of(context).pushNamed('/cartDetail'),
                         ),
                       ],
                     ),
@@ -158,8 +172,8 @@ class ProductListPage extends ConsumerWidget {
   }
 
   _buildList(MyCategory category) {
-    var list = <Widget?>[];
-    category.subCategories!.forEach((element) {
+    var list = <Widget>[];
+    category.subCategories.forEach((element) {
       list.add(Padding(
         padding: const EdgeInsets.all(8),
         child: Text(
@@ -169,5 +183,40 @@ class ProductListPage extends ConsumerWidget {
       ));
     });
     return list;
+  }
+
+Future<FirebaseAuth.User>  _checkLoginState() async {
+    if(FirebaseAuth.FirebaseAuth.instance.currentUser !=null){
+      FirebaseAuth.FirebaseAuth.instance.currentUser.getIdToken().then((toket) {
+        print('Token $toket');
+      });
+    }
+return FirebaseAuth.FirebaseAuth.instance.currentUser;
+}
+
+  processLogin(BuildContext context) async {
+
+    var user = FirebaseAuth.FirebaseAuth.instance.currentUser;
+    if(user == null){
+      FirebaseAuthUi.instance().launchAuth([AuthProvider.phone()])
+          .then((firebaseUser) => context.read(userLogged).state = FirebaseAuth.FirebaseAuth.instance.currentUser).catchError((e){
+            if(e is PlatformException){
+              if(e.code == FirebaseAuthUi.kUserCancelledError)
+                showOnlySnackBar(context, 'User canceled login');
+              else
+                showOnlySnackBar(context, '${e.message ?? 'Unknown error'}' );
+            }
+      });
+    }
+    else{
+      var result = await FirebaseAuthUi.instance().logout();
+      if(result){
+        showOnlySnackBar(context, 'Logout success fully');
+        //Refresh
+        context.read(userLogged).state = FirebaseAuth.FirebaseAuth.instance.currentUser;
+        }
+          else
+          showOnlySnackBar(context , 'Logout error');
+    }
   }
 }

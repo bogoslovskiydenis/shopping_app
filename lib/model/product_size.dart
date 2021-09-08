@@ -8,10 +8,10 @@ class ProductSize {
      this.size,
   });
 
-  int? sizeId;
-  int? productId;
-  int? number;
-  MySize? size;
+  int sizeId;
+  int productId;
+  int number;
+  MySize size;
 
   factory ProductSize.fromJson(Map<String, dynamic> json) => ProductSize(
     sizeId: json["sizeId"],
@@ -25,6 +25,6 @@ class ProductSize {
     "sizeId": sizeId,
     "productId": productId,
     "number": number,
-    "size": size!.toJson(),
+    "size": size.toJson(),
   };
 }

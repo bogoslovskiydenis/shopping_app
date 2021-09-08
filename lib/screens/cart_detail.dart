@@ -7,9 +7,9 @@ import 'package:shopping_app/floor/dao/const.dart';
 import 'package:shopping_app/floor/entity/cart_product.dart';
 
 class CartDetail extends StatefulWidget {
-  final CartDAO? dao;
+  final CartDAO dao;
 
-  CartDetail({Key? key, this.dao}) : super(key: key);
+  CartDetail({Key key, this.dao}) : super(key: key);
 
   @override
   State<StatefulWidget> createState() => CartDetailState();
@@ -29,7 +29,7 @@ class CartDetailState extends State<CartDetail> {
         ),
       ),
       body: StreamBuilder(
-        stream: widget.dao!.getAllItemInCartByUid(NOT_SIGN_IN),
+        stream: widget.dao.getAllItemInCartByUid(NOT_SIGN_IN),
         builder: (context, snapshot) {
           var items = snapshot.data as List<Cart>;
           return Column(
@@ -48,7 +48,7 @@ class CartDetailState extends State<CartDetail> {
                               foregroundColor: Colors.red,
                               color: Colors.white,
                               onTap: () async {
-                                await widget.dao!.deleteCart(items[index]);
+                                await widget.dao.deleteCart(items[index]);
                               },
                             )
                           ],
@@ -146,7 +146,7 @@ class CartDetailState extends State<CartDetail> {
                                   ),
                                   Center(
                                       child: ElegantNumberButton(
-                                    initialValue: items[index].quantity!,
+                                    initialValue: items[index].quantity,
                                     minValue: 1,
                                     maxValue: 100,
                                     buttonSizeHeight: 20,
@@ -154,8 +154,8 @@ class CartDetailState extends State<CartDetail> {
                                     decimalPlaces: 0,
                                     color: Colors.white,
                                     onChanged: (value) async {
-                                      items[index].quantity = value as int?;
-                                      await widget.dao!
+                                      items[index].quantity = value as int;
+                                      await widget.dao
                                           .updateCart(items[index]);
                                     },
                                   )),
@@ -179,7 +179,7 @@ class CartDetailState extends State<CartDetail> {
                                 fontSize: 16, fontWeight: FontWeight.bold),
                           ),
                           Text(
-                              '\$${items.length > 0 ? items.map<double>((m) => m.price! * m.quantity!).reduce((value, element) => value + element).toStringAsFixed(2) : 0}')
+                              '\$${items.length > 0 ? items.map<double>((m) => m.price * m.quantity).reduce((value, element) => value + element).toStringAsFixed(2) : 0}')
                         ],
                       ),
                       Divider(
@@ -194,7 +194,7 @@ class CartDetailState extends State<CartDetail> {
                                 fontSize: 14, fontWeight: FontWeight.bold),
                           ),
                           Text(
-                              '\$${items.length > 0 ? (items.map<double>((m) => m.price! * m.quantity!).reduce((value, element) => value + element)*0.1).toStringAsFixed(2) : 0}')
+                              '\$${items.length > 0 ? (items.map<double>((m) => m.price * m.quantity).reduce((value, element) => value + element)*0.1).toStringAsFixed(2) : 0}')
                         ],
                       ),
                       Row(
@@ -206,8 +206,8 @@ class CartDetailState extends State<CartDetail> {
                                 fontSize: 16, fontWeight: FontWeight.bold),
                           ),
                           Text(
-                              '\$${items.length > 0 ? ((items.map<double>((m) => m.price! * m.quantity!).reduce((value, element) => value + element))
-                                  + items.map<double>((m) => m.price! * m.quantity!).reduce((value, element) => value + element)*0.1).toStringAsFixed(2) : 0}',
+                              '\$${items.length > 0 ? ((items.map<double>((m) => m.price * m.quantity).reduce((value, element) => value + element))
+                                  + items.map<double>((m) => m.price * m.quantity).reduce((value, element) => value + element)*0.1).toStringAsFixed(2) : 0}',
                             style: TextStyle(
                                 fontSize: 16, fontWeight: FontWeight.bold),)
                         ],

@@ -4,7 +4,7 @@ class FeatureImg {
   String featureImgUrl;
   Null categoryId;
 
-  FeatureImg({required this.featureImgId, required this.featureImgUrl, this.categoryId});
+  FeatureImg({ this.featureImgId,  this.featureImgUrl, this.categoryId});
 
 factory  FeatureImg.fromJson(Map<String, dynamic> json)=> FeatureImg(
     featureImgId : json['featureImgId'],

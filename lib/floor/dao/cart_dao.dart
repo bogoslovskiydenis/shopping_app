@@ -9,11 +9,11 @@ abstract class CartDAO {
 
   //select uid / productId
   @Query('SELECT * FROM Cart WHERE uid = :uid and productId = :id ')
-  Future<Cart?> getItemInCartByUid(String uid, int id);
+  Future<Cart> getItemInCartByUid(String uid, int id);
 
   //delete uid
   @Query('DELETE FROM Cart WHERE uid = :uid')
-  Stream<List<Cart?>> clearCartByUid(String uid);
+  Stream<List<Cart>> clearCartByUid(String uid);
 
   //update uid
   @Query('UPDATE Cart SET uid=:uid')

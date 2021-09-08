@@ -12,18 +12,18 @@ String productToJson(Product data) => json.encode(data.toJson());
 
 class Product {
   Product({
-      required this.productId,
-     required this.productName,
-     required this.productShortDescription,
-     required this.productDescription,
+       this.productId,
+      this.productName,
+      this.productShortDescription,
+      this.productDescription,
      this.productOldPrice,
       this.productNewPrice,
      this.productIsSale,
     this.productSaleText,
-     required this.productSubText,
+      this.productSubText,
       this.productOrderNumber,
      this.productCreateDate,
-     required this.productCode,
+      this.productCode,
      this.subCategoryId,
     this.subCategory,
      this.productColours,
@@ -38,22 +38,22 @@ class Product {
   String productName;
   String productShortDescription;
   String productDescription;
-  double? productOldPrice;
-  double? productNewPrice;
-  bool? productIsSale;
-  dynamic? productSaleText;
+  double productOldPrice;
+  double productNewPrice;
+  bool productIsSale;
+  dynamic productSaleText;
   String productSubText;
-  int? productOrderNumber;
-  DateTime? productCreateDate;
+  int productOrderNumber;
+  DateTime productCreateDate;
   String productCode;
-  int? subCategoryId;
-  dynamic? subCategory;
-  List<dynamic>? productColours;
-  List<dynamic>? productFabrics;
-  List<ProductImage>? productImages;
-  List<dynamic>? productJacketModels;
-  List<dynamic>? productPatterns;
-  List<ProductSize>? productSizes;
+  int subCategoryId;
+  dynamic subCategory;
+  List<dynamic> productColours;
+  List<dynamic> productFabrics;
+  List<ProductImage> productImages;
+  List<dynamic> productJacketModels;
+  List<dynamic> productPatterns;
+  List<ProductSize> productSizes;
 
   factory Product.fromJson(Map<String, dynamic> json) => Product(
     productId: json["productId"]as int,
@@ -90,24 +90,24 @@ class Product {
     "productSaleText": productSaleText,
     "productSubText": productSubText,
     "productOrderNumber": productOrderNumber,
-    "productCreateDate": productCreateDate!.toIso8601String(),
+    "productCreateDate": productCreateDate.toIso8601String(),
     "productCode": productCode,
     "subCategoryId": subCategoryId,
     "subCategory": subCategory,
-    "productColours": List<dynamic>.from(productColours!.map((x) => x)),
-    "productFabrics": List<dynamic>.from(productFabrics!.map((x) => x)),
-    "productImages": List<dynamic>.from(productImages!.map((x) => x.toJson())),
-    "productJacketModels": List<dynamic>.from(productJacketModels!.map((x) => x)),
-    "productPatterns": List<dynamic>.from(productPatterns!.map((x) => x)),
-    "productSizes": List<dynamic>.from(productSizes!.map((x) => x.toJson())),
+    "productColours": List<dynamic>.from(productColours.map((x) => x)),
+    "productFabrics": List<dynamic>.from(productFabrics.map((x) => x)),
+    "productImages": List<dynamic>.from(productImages.map((x) => x.toJson())),
+    "productJacketModels": List<dynamic>.from(productJacketModels.map((x) => x)),
+    "productPatterns": List<dynamic>.from(productPatterns.map((x) => x)),
+    "productSizes": List<dynamic>.from(productSizes.map((x) => x.toJson())),
   };
 }
 
 class ProductImage {
   ProductImage({
-    required this.imgId,
-    required this.imgUrl,
-    required this.productId,
+     this.imgId,
+     this.imgUrl,
+     this.productId,
   });
 
   int imgId;

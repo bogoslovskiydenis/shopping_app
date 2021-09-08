@@ -16,7 +16,7 @@ class SizeWidget extends StatelessWidget {
         width: 50.0,
         height: 50.0,
         child: Center(
-          child: Text(sizeModel.productSizes.size!.sizeName,
+          child: Text(sizeModel.productSizes.size.sizeName,
             style: TextStyle(
                 color:sizeModel.productSizes.number == 0 ? Colors.white: sizeModel.isSelected ? Colors.white : Colors.black,
                 fontSize: 14),

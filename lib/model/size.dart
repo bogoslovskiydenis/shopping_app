@@ -1,8 +1,8 @@
 class MySize {
   MySize({
-    required this.sizeId,
-    required this.sizeName,
-    required this.productSizes,
+     this.sizeId,
+     this.sizeName,
+     this.productSizes,
   });
 
   int sizeId;
