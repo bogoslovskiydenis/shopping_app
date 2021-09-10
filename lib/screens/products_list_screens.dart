@@ -11,6 +11,8 @@ import 'package:shopping_app/network/api_request.dart';
 import 'package:shopping_app/state/state_management.dart';
 import 'package:shopping_app/widgets/product_card.dart';
 
+import 'auth.dart';
+
 class ProductListPage extends ConsumerWidget {
   //ignore: top_level_function_literal_block
   final _fetchCategories = FutureProvider((ref) async {
@@ -113,7 +115,7 @@ class ProductListPage extends ConsumerWidget {
                                 user == null ? Icons.account_circle  : Icons.exit_to_app,
                                 size: 35,
                                 color: Colors.black),
-                            onPressed: () => processLogin(context),
+                            onPressed: () => Navigator.push(context, MaterialPageRoute(builder: (context)=> AuthorizationPage())),
                           );
                         }),
                         IconButton(
@@ -187,8 +189,8 @@ class ProductListPage extends ConsumerWidget {
 
 Future<FirebaseAuth.User>  _checkLoginState() async {
     if(FirebaseAuth.FirebaseAuth.instance.currentUser !=null){
-      FirebaseAuth.FirebaseAuth.instance.currentUser.getIdToken().then((toket) {
-        print('Token $toket');
+      FirebaseAuth.FirebaseAuth.instance.currentUser.getIdToken().then((token) {
+        print('Token $token');
       });
     }
 return FirebaseAuth.FirebaseAuth.instance.currentUser;
