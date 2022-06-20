@@ -1,9 +1,8 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_elegant_number_button/flutter_elegant_number_button.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:shopping_app/floor/dao/cart_dao.dart';
-import 'package:shopping_app/floor/dao/const.dart';
+import 'package:shopping_app/const/const.dart';
 import 'package:shopping_app/floor/entity/cart_product.dart';
 
 class CartDetail extends StatefulWidget {

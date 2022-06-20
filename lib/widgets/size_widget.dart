@@ -1,6 +1,5 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:shopping_app/model/product_size.dart';
+import '../model/models.dart';
 
 class SizeWidget extends StatelessWidget {
   final SizeModel sizeModel;

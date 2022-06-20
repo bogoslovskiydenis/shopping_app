@@ -1,8 +1,10 @@
 import 'dart:convert';
 
-List<MyBanner> myBannerFromJson(String str) => List<MyBanner>.from(json.decode(str).map((x) => MyBanner.fromJson(x)));
+List<MyBanner> myBannerFromJson(String str) =>
+    List<MyBanner>.from(json.decode(str).map((x) => MyBanner.fromJson(x)));
 
-String myBannerToJson(List<MyBanner> data) => json.encode(List<dynamic>.from(data.map((x) => x.toJson())));
+String myBannerToJson(List<MyBanner> data) =>
+    json.encode(List<dynamic>.from(data.map((x) => x.toJson())));
 
 class MyBanner {
   MyBanner({
@@ -18,16 +20,16 @@ class MyBanner {
   String bannerText;
 
   factory MyBanner.fromJson(Map<String, dynamic> json) => MyBanner(
-    bannerImgId: json["bannerImgId"],
-    bannerImgUrl: json["bannerImgUrl"],
-    categoryId: json["categoryId"],
-    bannerText: json["bannerText"],
-  );
+        bannerImgId: json["bannerImgId"],
+        bannerImgUrl: json["bannerImgUrl"],
+        categoryId: json["categoryId"],
+        bannerText: json["bannerText"],
+      );
 
   Map<String, dynamic> toJson() => {
-    "bannerImgId": bannerImgId,
-    "bannerImgUrl": bannerImgUrl,
-    "categoryId": categoryId,
-    "bannerText": bannerText,
-  };
+        "bannerImgId": bannerImgId,
+        "bannerImgUrl": bannerImgUrl,
+        "categoryId": categoryId,
+        "bannerText": bannerText,
+      };
 }

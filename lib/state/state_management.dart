@@ -1,8 +1,5 @@
-
-import 'package:flutter_riverpod/all.dart';
-import 'package:shopping_app/model/category.dart';
-import 'package:shopping_app/model/product.dart';
-import 'package:shopping_app/model/product_size.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import '../model/models.dart';
 
 final subCategorySelected = StateProvider((ref)=> SubCategory(subCategoryName: '', subCategoryId: 0));
 final productSelected = StateProvider((ref)=> Product(productName: '', productShortDescription: '',

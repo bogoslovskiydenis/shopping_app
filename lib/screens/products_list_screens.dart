@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:shopping_app/model/category.dart';
-import 'package:shopping_app/model/product.dart';
 import 'package:shopping_app/network/api_request.dart';
 import 'package:shopping_app/state/state_management.dart';
 import 'package:shopping_app/widgets/product_card.dart';
+import '../model/models.dart';
 
 class ProductListPage extends ConsumerWidget {
   //ignore: top_level_function_literal_block

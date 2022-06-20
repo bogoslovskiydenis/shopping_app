@@ -1,10 +1,8 @@
 import 'package:auto_size_text/auto_size_text.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:shopping_app/const/api_cons.dart';
-import 'package:shopping_app/model/product.dart';
 import 'package:shopping_app/state/state_management.dart';
 import 'package:flutter_riverpod/all.dart';
+import '../model/models.dart';
 
 class ProductCard extends StatelessWidget {
   final Product product;

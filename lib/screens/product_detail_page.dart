@@ -2,7 +2,7 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:shopping_app/floor/dao/cart_dao.dart';
-import 'package:shopping_app/floor/dao/const.dart';
+import 'package:shopping_app/const/const.dart';
 import 'package:shopping_app/floor/entity/cart_product.dart';
 import 'package:shopping_app/model/product.dart';
 import 'package:shopping_app/network/api_request.dart';

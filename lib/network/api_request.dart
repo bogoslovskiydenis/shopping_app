@@ -1,11 +1,8 @@
 import 'dart:convert';
-import 'package:shopping_app/model/category.dart';
-import 'package:shopping_app/model/feature_image.dart';
 import 'package:http/http.dart' as http;
 import 'package:flutter/foundation.dart';
-import 'package:shopping_app/model/banner.dart';
 import 'package:shopping_app/const/api_cons.dart';
-import 'package:shopping_app/model/product.dart';
+import '../model/models.dart';
 
 //region: MyBanner Api request
 List <MyBanner> parseBanner(String responseBody){
@@ -23,8 +20,7 @@ Future<List<MyBanner>> fetchBanner ()async
     throw Exception('Not found');
   else
     throw Exception ('Cannot get Banner');
-}
-//endregion:
+} //endregion:
 
 //region: Future Api request
 List <FeatureImg> parseFeatureImage (String responseBody){
@@ -43,8 +39,7 @@ Future<List<FeatureImg>> fetchFeatureImages ()async
     throw Exception('Not found');
   else
     throw Exception ('Cannot get Banner');
-}
-//endregion:
+} //endregion:
 
 //region : Categories Api request
 List <MyCategory> parseCategory(String responseBody){
@@ -62,8 +57,7 @@ Future<List<MyCategory>> fetchCategories ()async
     throw Exception('Not found');
   else
     throw Exception ('Cannot get Categories');
-}
-//endregion:
+} //endregion:
 
 //region : Products Api request
 List <Product> parseProduct(String responseBody){
@@ -91,8 +85,7 @@ Future<List<Product>> fetchProductsBySubCategory (id)async
     throw Exception('Not found');
   else
     throw Exception ('Cannot get Product');
-}
-//endregion:
+} //endregion:
 
 //region : ProductsDetail Api request
 Product parseProductDetail(String responseBody){
@@ -110,6 +103,4 @@ Future<Product> fetchProductsDetail (id)async
     throw Exception('Not found');
   else
     throw Exception ('Cannot get Product Detail');
-}
-
-//endregion:
+}//endregion:
